@@ -1,0 +1,19 @@
+import { Pipe, PipeTransform } from '@angular/core';
+import { SettingsService } from '../services/settings-service';
+@Pipe({
+  name: 'Translate',
+})
+export class TranslatePipe implements PipeTransform {
+  resourceValue: string;
+  constructor(public settingsService: SettingsService) { }
+
+  transform(value: string, defaultValue: string): string {
+    this.resourceValue = this.settingsService.getResourceOrDefault(value, defaultValue);       
+    return this.resourceValue;  
+  }
+}
+
+=================================================================================================
+test.html
+
+<div class="pull-left float-left">{{"CUSTOMERAVCONTROL_LABEL_AVSTATUS" | Translate : "Customer A/V Status"}}</div>
